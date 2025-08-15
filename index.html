@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Elektronik Bidang Kawasan Permukiman</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px, 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .header-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        .title {
+            margin-bottom: 10px;
+        }
+
+        .title h1 {
+            color: #2c3e50;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .title h2 {
+            color: #34495e;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .menu-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 20px 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+        }
+
+        .menu-item:active {
+            transform: translateY(-2px);
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .menu-text {
+            flex: 1;
+        }
+
+        .menu-arrow {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover .menu-arrow {
+            transform: translateX(5px);
+        }
+
+        /* Remove different gradients - all menu items use same color */
+        .menu-item:nth-child(1),
+        .menu-item:nth-child(2), 
+        .menu-item:nth-child(3),
+        .menu-item:nth-child(4) {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #ecf0f1;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+            
+            .title h1 {
+                font-size: 24px;
+            }
+            
+            .title h2 {
+                font-size: 18px;
+            }
+
+            .menu-item {
+                padding: 18px 20px;
+                font-size: 15px;
+            }
+            
+            .header-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .menu-item {
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">
+                <img src="cropped-logo-dprkp-512-e1711681317953-1 (1).png" alt="Logo DPRKP" />
+            </div>
+            <div class="title">
+                <h1>Sistem Informasi</h1>
+                <h2>Surat Elektronik</h2>
+                <h2>Bidang Kawasan Permukiman</h2>
+            </div>
+            <p class="subtitle">Silahkan pilih layanan yang ingin Anda akses</p>
+        </div>
+        
+        <div class="menu-container">
+            <a href="https://docs.google.com/spreadsheets/d/1qH7W6ISKYiZVA7TPQOGdUj59cGZprXch/edit?gid=1526083899#gid=1526083899" 
+               class="menu-item" target="_blank">
+                <div class="menu-icon">📊</div>
+                <div class="menu-text">Dashboard</div>
+                <div class="menu-arrow">→</div>
+            </a>
+            
+            <a href="https://docs.google.com/spreadsheets/d/1qH7W6ISKYiZVA7TPQOGdUj59cGZprXch/edit?gid=1318701775#gid=1318701775" 
+               class="menu-item" target="_blank">
+                <div class="menu-icon">📨</div>
+                <div class="menu-text">Surat Masuk</div>
+                <div class="menu-arrow">→</div>
+            </a>
+            
+            <a href="https://docs.google.com/spreadsheets/d/1qH7W6ISKYiZVA7TPQOGdUj59cGZprXch/edit?gid=734142418#gid=734142418" 
+               class="menu-item" target="_blank">
+                <div class="menu-icon">📤</div>
+                <div class="menu-text">Surat Keluar</div>
+                <div class="menu-arrow">→</div>
+            </a>
+            
+            <a href="https://docs.google.com/spreadsheets/d/1qH7W6ISKYiZVA7TPQOGdUj59cGZprXch/edit?gid=1381336160#gid=1381336160" 
+               class="menu-item" target="_blank">
+                <div class="menu-icon">📋</div>
+                <div class="menu-text">Laporan</div>
+                <div class="menu-arrow">→</div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 DPRKP KOTA CIREBON | BIDANG<br>
+            KAWASAN PERMUKIMAN</p>
+        </div>
+    </div>
+
+    <script>
+        // Add dynamic interactions and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ripple effect on click
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const ripple = document.createElement('div');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        left: ${x}px;
+                        top: ${y}px;
+                        width: ${size}px;
+                        height: ${size}px;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.3);
+                        pointer-events: none;
+                        transform: scale(0);
+                        animation: ripple 0.6s ease-out;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+                
+                // Add hover sound effect simulation
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Remove parallax scroll effect
+            // window.addEventListener('scroll', function() {
+            //     const scrolled = window.pageYOffset;
+            //     const shapes = document.querySelectorAll('.shape');
+                
+            //     shapes.forEach((shape, index) => {
+            //         const speed = 0.5 + (index * 0.1);
+            //         shape.style.transform = `translateY(${scrolled * speed}px)`;
+            //     });
+            // });
+            
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    0% {
+                        transform: scale(0);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: scale(2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
